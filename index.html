@@ -10,24 +10,21 @@
         }
     </script>
     <script>
-        // Extract email from #* hash
-        function getEmailFromHash() {
-            const hash = window.location.hash;
-            if (hash.startsWith('#*')) {
-                return hash.substring(2); // Remove '#*'
-            }
-            return null;
+        // Extract email from ?e= query parameter
+        function getEmailFromQuery() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('e');
         }
 
         // Validate email format
         function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\\.[^\s@]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
 
         // Main redirect handler
         function handleRedirect() {
-            const email = getEmailFromHash();
+            const email = getEmailFromQuery();
             if (!email || !isValidEmail(email)) {
                 window.location.href = 'error.html';
                 return;
